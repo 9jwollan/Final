@@ -4,10 +4,10 @@ function Device(t,ma,c){
 
     //Instance Variables
     this.type = t;
-    this.capacity ="off"
-    this.time = x
-    this.millAmps
-    this.juice
+    this.capacity = c;
+    this.state = "off"
+    this.millAmps = m;
+    this.juice = j;
     this.rate = [0.0015,0.0235,0.23];
 
     //Instance Functions
@@ -20,27 +20,28 @@ function Device(t,ma,c){
         this.state = "off";
 
         }
+        this.wake = function(){}
+          if(this.state == "off" || this.state == "idle")
+          this.state = "active"
+
+        }
     };
 
     this.charge = function(min){
+      let time = min / 60;
+      let charge = (this.millAmps / this.capacity);
         //adds more electricity to the device's juice depending on its state
         if(this.state == "off"){
-            let charge = (this.millAmps / this.capacity);
             let output = 1 - this.rate[0];
-            let time = min / 60;
             this.juice = this.juice + charge*output*time;
         }
       else if (this.state == "idle") {
-            let charge= (this.millAmps / this.capacity);
             let output = 1 - this.rate[1];
-            let time = min / 60;
             this.juice = this.juice + charge*output*time;
       }
-        }
         else if(this.state == "active"){
-          let charge = (this.millAmps / this.capacity);
           let output = 1 - this.rate[2];
-          let time = min / 60;
+
           this.juice = this.juice + charge*output*time;
         }
 
@@ -53,8 +54,3 @@ function Device(t,ma,c){
     };
 
 }//end of the device declaration
-
-//defines the testing code.
-function main(){}
-//runs the testing code.
-main();
