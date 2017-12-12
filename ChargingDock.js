@@ -8,18 +8,24 @@ function ChargingDock(){
 
 //Instance Fucntions
     this.plug = function(dvc){
-        this.charge
-        this.leds ["yellow"]
-        this.ports; ["fill"]
+
+        for(let p=0 this.ports.length < 8 p++;){
+          if(this.led[p]="red"){
+            this.ports[p]=dvc
+            this.leds[p]= "yellow"
+          }
+
+
+
+        }
     };
 
     this.unplug = function(dvcIdx){
-        this.leds ["red"]
-        this.ports["undefined"]
+
     };
 
     this.chargeAll = function(min){
-        
+
     };
 
 
