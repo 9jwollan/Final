@@ -6,8 +6,8 @@ function Device(t,ma,c){
     this.type = t;
     this.capacity = c;
     this.state = "off"
-    this.millAmps = m;
-    this.juice = j;
+    this.milliAmps = ma;
+    this.juice = 1;
     this.rate = [0.0015,0.0235,0.23];
 
     //Instance Functions
@@ -54,3 +54,25 @@ function Device(t,ma,c){
     };
 
 }//end of the device declaration
+
+function main(){
+  let flemphone = new Device("phone",3000,10000);
+  console.log(flemphone.power());
+  flemphone.on();
+  flemphone.wake();
+  flemphone.use(90);
+  console.log(flemphone.power());
+  flemphone.sleep();
+  flemphone.use(300);
+  console.log(flemphone.power());
+  flemphone.off();
+  flemphone.use(300);
+  console.log(flemphone.power());
+  flemphone.charge(60);
+  console.log(flemphone.power());
+  flemphone.charge(1000);
+  console.log(flemphone.power());
+}
+main()
+
+module.exports = Device;
