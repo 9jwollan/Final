@@ -11,21 +11,43 @@ function Device(t,ma,c){
     this.rate = [0.0015,0.0235,0.23];
 
     //Instance Functions
+
+    this.power = function(){
+      return this.juice
+    }
+
+    this.use = function(){
+      if(this.state="active")
+        this.rate[3]
+      else if(this.state = "idle")
+          this.rate[2]
+          else if(thi.state = "off")
+          this.rate[1]
+    }
+
     this.on = function(){
-        if(this.state == "off" && this.juice >0){
-           this.state = "idle";
-        }
-        else if (this.state == "off" && this.juice <0
-      ){
-        this.state = "off";
+      if(this.state == "off" && this.juice >0)
+       this.state = "idle";
 
-        }
-        this.wake = function(){}
+       else if (this.state == "off" && this.juice <0)
+       this.state = "off";
+     }
+
+
+
+
+
+        this.wake = function(){
           if(this.state == "off" || this.state == "idle")
-          this.state = "active"
+          this.state = "active";
 
         }
-    };
+        this.sleep = function(){
+          if(this.state == "active")
+          this.state = "idle";
+
+        }
+
 
     this.charge = function(min){
       let time = min / 60;
@@ -39,7 +61,7 @@ function Device(t,ma,c){
             let output = 1 - this.rate[1];
             this.juice = this.juice + charge*output*time;
       }
-        else if(this.state == "active"){
+        else if (this.state == "active"){
           let output = 1 - this.rate[2];
 
           this.juice = this.juice + charge*output*time;
@@ -51,9 +73,13 @@ function Device(t,ma,c){
           this.led = green
           this.charge=1
 
-    };
 
-}//end of the device declaration
+    };
+});
+
+
+
+}
 
 function main(){
   let flemphone = new Device("phone",3000,10000);
