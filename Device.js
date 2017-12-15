@@ -13,92 +13,96 @@ function Device(t,ma,c){
     //Instance Functions
 
     this.power = function(){
-      return this.juice
+        return this.juice
     }
 
     this.use = function(){
-      if(this.state="active")
-        this.rate[3]
-      else if(this.state = "idle")
-          this.rate[2]
-          else if(thi.state = "off")
-          this.rate[1]
+        let time = min/60
+        if(this.state = "off"){
+            this.juice = this.juice - this.rate [0]*time;
+        }
+        else if(this.state = "idle"){
+            this.juice = this.juice -this.rate[1]*time;
+        }
+        else if(this.state = "active"){
+            this.juice = this.juice -this.rate[2]*time;
+        }
     }
 
     this.on = function(){
-      if(this.state == "off" && this.juice >0)
-       this.state = "idle";
-
-       else if (this.state == "off" && this.juice <0)
-       this.state = "off";
-     }
-
-
-
-
-
-        this.wake = function(){
-          if(this.state == "off" || this.state == "idle")
-          this.state = "active";
-
+        if(this.state == "off" && this.juice >0){
+            this.state = "idle";
         }
-        this.sleep = function(){
-          if(this.state == "active")
-          this.state = "idle";
 
+        else if (this.state == "off" && this.juice <0){
+            this.state = "off";
         }
+    };
+
+
+
+
+
+    this.wake = function(){
+        if(this.state == "off" || this.state == "idle")
+        this.state = "active";
+
+    }
+    this.sleep = function(){
+        if(this.state == "active")
+        this.state = "idle";
+
+    }
 
 
     this.charge = function(min){
-      let time = min / 60;
-      let charge = (this.millAmps / this.capacity);
+        let time = min / 60;
+        let charge = (this.millAmps / this.capacity);
         //adds more electricity to the device's juice depending on its state
         if(this.state == "off"){
             let output = 1 - this.rate[0];
             this.juice = this.juice + charge*output*time;
         }
-      else if (this.state == "idle") {
+        else if (this.state == "idle") {
             let output = 1 - this.rate[1];
             this.juice = this.juice + charge*output*time;
-      }
+        }
         else if (this.state == "active"){
-          let output = 1 - this.rate[2];
+            let output = 1 - this.rate[2];
 
-          this.juice = this.juice + charge*output*time;
+            this.juice = this.juice + charge*output*time;
         }
 
         //resets juice to 1 if it has exceeded 1
         if(charge>=1){
-          this.rate=0
-          this.led = green
-          this.charge=1
-
-
+            this.rate=0
+            this.led = green
+            this.charge=1
+        }
     };
-});
 
 
 
-}
 
-function main(){
-  let flemphone = new Device("phone",3000,10000);
-  console.log(flemphone.power());
-  flemphone.on();
-  flemphone.wake();
-  flemphone.use(90);
-  console.log(flemphone.power());
-  flemphone.sleep();
-  flemphone.use(300);
-  console.log(flemphone.power());
-  flemphone.off();
-  flemphone.use(300);
-  console.log(flemphone.power());
-  flemphone.charge(60);
-  console.log(flemphone.power());
-  flemphone.charge(1000);
-  console.log(flemphone.power());
-}
-main()
 
-module.exports = Device;
+    function main(){
+        let flemphone = new Device("phone",3000,10000);
+        console.log(flemphone.power());
+        flemphone.on();
+        flemphone.wake();
+        flemphone.use(90);
+        console.log(flemphone.power());
+        flemphone.sleep();
+        flemphone.use(300);
+        console.log(flemphone.power());
+        flemphone.off();
+        flemphone.use(300);
+        console.log(flemphone.power());
+        flemphone.charge(60);
+        console.log(flemphone.power());
+        flemphone.charge(1000);
+        console.log(flemphone.power());
+    }
+    main()
+
+    module.exports = Device;

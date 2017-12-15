@@ -21,23 +21,23 @@ this.leds = ["red", "red", "red", "red", "red", "red", "red", "red"];
     };
 
     this.unplug = function(dvcIdx){
-for(let p=0; this.ports.length < 8; p++){
-if (this.led[p]="green"){
-this.ports[p]= "undefined"
-this.leds[p] = "red"
-
+        if(this.leds[dvcIdx] == "yellow" || this.leds[dvcIdx] == "green")        this.ports[dvcIdx] = "undefined";
+        this.leds[dvcIdx] = "red"
+        return this.ports[dvcIdx];
 }
 
-}
+
 
     };
 
     this.chargeAll = function(min){
-if (this.led[p] = "yellow")
-time = min / 60;
-charge = (this.millAmps / this.capacity);
-    };
-
+for(p = 0; p < this.ports.length; p++){
+if (this.leds[p] == "yellow" || this.leds [p] == "green")
+this.ports[p].charge(min)
+}
+if(this.ports[p].juice >= .99){
+this.leds[p] = "green"
+}
 
 }
 
